@@ -5,6 +5,7 @@ const tseslint = require("typescript-eslint");
 const pluginReact = require("eslint-plugin-react");
 const pluginI18next = require("eslint-plugin-i18next");
 const pluginPrettier = require("eslint-plugin-prettier");
+require("./polyfills.js");
 
 module.exports = [
     // Базовые настройки
@@ -48,18 +49,19 @@ module.exports = [
             "react/jsx-filename-extension": [2, { extensions: [".js", ".jsx", ".tsx"] }],
             "react/require-default-props": "off",
             "react/react-in-jsx-scope": "off",
-            "react/jsx-props-no-spreading": "warn",
+            "react/jsx-props-no-spreading": "off",
             "react/function-component-definition": "off",
         },
     },
-
-    // i18next правила
+    // i18next правила (только для исходников, исключая тесты)
     {
+        files: ["**/src/**/*.{ts,tsx}"],
+        ignores: ["**/*.test.{ts,tsx}"], // Игнорируем тесты
         plugins: {
             i18next: pluginI18next,
         },
         rules: {
-            "i18next/no-literal-string": ["error", { markupOnly: true }],
+            "i18next/no-literal-string": ["error", { markupOnly: true, ignoreAttribute: ["data-testid", "to"] }],
         },
     },
 

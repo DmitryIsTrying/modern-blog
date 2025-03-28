@@ -1,3 +1,4 @@
+import { useTheme } from "app/providers/ThemeProvider";
 import { useTranslation } from "react-i18next";
 import { classNames } from "shared/lib/classNames/classNames";
 import { Button } from "shared/ui/Button/Button";
@@ -14,8 +15,10 @@ export const PageError = ({ className }: PageErrorProps) => {
         location.reload();
     };
 
+    const { theme } = useTheme();
+
     return (
-        <div className={classNames(cls.pageError, {}, [className, "app dark"])}>
+        <div className={classNames(cls.pageError, {}, [className, `app ${theme}`])}>
             <p>{t("Произошла непредвиденная ошибка")}</p>
             <Button onClick={reloadPage}>{t("Обновить страницу")}</Button>
         </div>
