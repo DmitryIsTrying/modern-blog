@@ -10,7 +10,7 @@ const style: CSSProperties = {
 const meta = {
     title: "widgets/Navbar",
     component: Navbar,
-    tags: ["autodocs", "widgets"],
+    tags: ["widgets"],
     argTypes: {
         className: {
             control: "text",

@@ -10,7 +10,7 @@ const style: CSSProperties = {
 const meta = {
     title: "pages/AboutPage",
     component: AboutPage,
-    tags: ["autodocs", "pages"],
+    tags: ["pages"],
     decorators: [
         (Story) => (
             <div style={style}>

@@ -4,7 +4,7 @@ import { AppLink, AppLinkTheme } from "./AppLink";
 const meta = {
     title: "shared/AppLink",
     component: AppLink,
-    tags: ["autodocs", "shared"],
+    tags: ["shared"],
 
     args: {
         children: "Text",

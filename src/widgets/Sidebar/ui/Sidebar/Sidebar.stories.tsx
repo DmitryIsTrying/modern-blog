@@ -9,7 +9,7 @@ const style: CSSProperties = {
 const meta = {
     title: "widgets/Sidebar",
     component: Sidebar,
-    tags: ["autodocs", "widgets"],
+    tags: ["widgets"],
     argTypes: {
         className: {
             control: "text",

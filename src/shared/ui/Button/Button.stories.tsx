@@ -5,7 +5,7 @@ import { Button, ButtonTheme } from "./Button";
 const meta = {
     title: "shared/Button",
     component: Button,
-    tags: ["autodocs", "ui", "buttons"],
+    tags: ["ui", "buttons"],
     argTypes: {
         onClick: {
             action: "clicked", // Логирование кликов

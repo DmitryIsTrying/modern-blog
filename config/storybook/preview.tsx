@@ -13,6 +13,12 @@ const getStyle = (theme: Theme): CSSProperties => {
     };
 };
 
+type ThemeModes = {
+    [key in Theme]: {
+        theme: Theme;
+    };
+};
+
 const preview: Preview = {
     decorators: [
         // 👇 Defining the decorator in the preview file applies it to all stories
@@ -35,6 +41,13 @@ const preview: Preview = {
                 color: /(background|color)$/i,
                 date: /Date$/i,
             },
+        },
+        chromatic: {
+            disableAnimations: true,
+            modes: Object.values(Theme).reduce((acc: ThemeModes, theme) => {
+                acc[theme] = { theme };
+                return acc;
+            }, {} as ThemeModes),
         },
     },
     globalTypes: {
