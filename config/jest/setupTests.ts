@@ -2,10 +2,17 @@ import "@testing-library/jest-dom";
 import "regenerator-runtime/runtime";
 
 jest.mock("react-i18next", () => ({
-    useTranslation: () => ({
-        t: (key: string) => key,
-        i18n: {
-            changeLanguage: jest.fn(),
-        },
-    }),
+    // this mock makes sure any components using the translate hook can use it without a warning being shown
+    useTranslation: () => {
+        return {
+            t: (str: string) => str,
+            i18n: {
+                changeLanguage: () => new Promise(() => {}),
+            },
+        };
+    },
+    initReactI18next: {
+        type: "3rdParty",
+        init: jest.fn(),
+    },
 }));
