@@ -43,6 +43,7 @@ const preview: Preview = {
             },
         },
         chromatic: {
+            disableAnimations: true,
             modes: Object.values(Theme).reduce((acc: ThemeModes, theme) => {
                 acc[theme] = { theme };
                 return acc;
