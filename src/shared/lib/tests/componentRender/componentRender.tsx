@@ -8,5 +8,5 @@ export interface componentRenderOptions {
 
 export function componentRender(children: ReactNode, options: componentRenderOptions = {}) {
     const { route = "/" } = options;
-    return render(<MemoryRouter initialEntries={[route]}>{}</MemoryRouter>);
+    return render(<MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>);
 }
