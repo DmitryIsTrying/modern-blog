@@ -13,6 +13,12 @@ const getStyle = (theme: Theme): CSSProperties => {
     };
 };
 
+type ThemeModes = {
+    [key in Theme]: {
+        theme: Theme;
+    };
+};
+
 const preview: Preview = {
     decorators: [
         // 👇 Defining the decorator in the preview file applies it to all stories
@@ -37,10 +43,10 @@ const preview: Preview = {
             },
         },
         chromatic: {
-            modes: {
-                light: { theme: "light" }, // Режим для Chromatic
-                dark: { theme: "dark" }, // Режим для Chromatic
-            },
+            modes: Object.values(Theme).reduce((acc: ThemeModes, theme) => {
+                acc[theme] = { theme };
+                return acc;
+            }, {} as ThemeModes),
         },
     },
     globalTypes: {
