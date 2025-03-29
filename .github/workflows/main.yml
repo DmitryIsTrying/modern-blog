@@ -25,21 +25,23 @@ jobs:
 
             - name: build project
               run: npm run build:prod
+              if: always()
 
             - name: linting ts
               run: npm run lint:ts
+              if: always()
 
             - name: linting scss
               run: npm run lint:scss
+              if: always()
 
             - name: unit testing
               run: npm run unit
-
-            - name: ui testing
-              run: npm run unit
+              if: always()
 
             - name: Build Storybook
               run: npm run build-storybook
+              if: always()
 
             - name: Publish to Chromatic
               uses: chromaui/action@latest
@@ -47,3 +49,4 @@ jobs:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
                   buildScriptName: build-storybook
                   exitOnceUploaded: true
+              if: always()
