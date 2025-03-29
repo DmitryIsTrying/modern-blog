@@ -36,6 +36,12 @@ const preview: Preview = {
                 date: /Date$/i,
             },
         },
+        chromatic: {
+            modes: {
+                light: { theme: "light" }, // Режим для Chromatic
+                dark: { theme: "dark" }, // Режим для Chromatic
+            },
+        },
     },
     globalTypes: {
         theme: {

@@ -4,7 +4,7 @@ import { PageError } from "./PageError";
 const meta = {
     title: "widgets/PageError",
     component: PageError,
-    tags: ["autodocs", "widgets"],
+    tags: ["widgets"],
     argTypes: {
         className: {
             control: "text",
