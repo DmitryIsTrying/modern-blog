@@ -16,7 +16,7 @@
         "test": "jest",
         "storybook": "storybook dev -p 6006 -c ./config/storybook",
         "build-storybook": "storybook build -c ./config/storybook",
-        "chromatic": "npx chromatic --project-token=chpt_994f2b2a08b577e"
+        "chromatic": "dotenv -e .env -- chromatic"
     },
     "keywords": [],
     "author": "",
@@ -53,6 +53,7 @@
         "babel-plugin-i18next-extract": "^0.8.3",
         "chromatic": "^11.27.0",
         "css-loader": "^6.6.0",
+        "dotenv-cli": "^8.0.0",
         "eslint": "^8.57.1",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-prettier": "^9.1.0",
