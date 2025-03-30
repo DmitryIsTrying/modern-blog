@@ -14,6 +14,7 @@ export const App = () => {
         <div className={classNames("app", {}, [theme])}>
             <Suspense fallback="">
                 <Navbar />
+
                 <div className="contentPage">
                     <Sidebar />
                     <AppRouter />
