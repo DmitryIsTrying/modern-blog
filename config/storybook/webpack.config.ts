@@ -49,5 +49,12 @@ export default ({ config }: { config: webpack.Configuration }) => {
         buildCssLoaders(true),
     ];
 
+    config.plugins = [
+        ...(config.plugins || []),
+        new webpack.DefinePlugin({
+            __IS_DEV__: true,
+        }),
+    ];
+
     return config;
 };
