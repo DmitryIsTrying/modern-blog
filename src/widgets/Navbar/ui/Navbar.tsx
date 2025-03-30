@@ -1,10 +1,11 @@
 /* eslint-disable i18next/no-literal-string */
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { classNames } from "shared/lib/classNames/classNames";
-import { Button, ButtonTheme } from "shared/ui/Button/Button";
-import { Modal } from "shared/ui/Modal/Modal";
+
 import cls from "./Navbar.module.scss";
+import { classNames } from "@/shared/lib/classNames/classNames";
+import { Button, ButtonTheme } from "@/shared/ui/Button/Button";
+import { Modal } from "@/shared/ui/Modal/Modal";
 
 interface NavbarProps {
     className?: string;

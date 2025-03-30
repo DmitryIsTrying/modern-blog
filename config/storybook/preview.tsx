@@ -1,5 +1,7 @@
+import { StoreProvider } from "@/app/providers/StoreProvider";
+import { Theme } from "@/app/providers/ThemeProvider";
 import type { Preview } from "@storybook/react";
-import { Theme } from "app/providers/ThemeProvider";
+
 import "app/styles/index.scss";
 import { CSSProperties } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -26,11 +28,13 @@ const preview: Preview = {
             const theme = (context.globals.theme || "light") as Theme;
 
             return (
-                <BrowserRouter>
-                    <div style={getStyle(theme)} className={`app ${theme}`}>
-                        <Story />
-                    </div>
-                </BrowserRouter>
+                <StoreProvider>
+                    <BrowserRouter>
+                        <div style={getStyle(theme)} className={`app ${theme}`}>
+                            <Story />
+                        </div>
+                    </BrowserRouter>
+                </StoreProvider>
             );
         },
     ],

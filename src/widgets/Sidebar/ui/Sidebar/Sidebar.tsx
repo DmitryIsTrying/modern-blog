@@ -1,15 +1,16 @@
 import { t } from "i18next";
 import { useState } from "react";
-import { RoutePath } from "shared/config/routeConfig/routeConfig";
-import { classNames } from "shared/lib/classNames/classNames";
-import { AppLink, AppLinkTheme } from "shared/ui/AppLink/AppLink";
-import { Button, ButtonSize, ButtonTheme } from "shared/ui/Button/Button";
-import { LangSwitcher } from "widgets/LangSwitcher/ui/LangSwitcher";
-import { ThemeSwitcher } from "widgets/ThemeSwitcher";
+
 import cls from "./Sidebar.module.scss";
 
 import AboutIcon from "shared/assets/icons/about-icon.svg";
 import MainIcon from "shared/assets/icons/main-icon.svg";
+import { RoutePath } from "@/shared/config/routeConfig/routeConfig";
+import { classNames } from "@/shared/lib/classNames/classNames";
+import { AppLink, AppLinkTheme } from "@/shared/ui/AppLink/AppLink";
+import { Button, ButtonTheme, ButtonSize } from "@/shared/ui/Button/Button";
+import { LangSwitcher } from "@/widgets/LangSwitcher";
+import { ThemeSwitcher } from "@/widgets/ThemeSwitcher";
 
 interface SidebarProps {
     className?: string;
