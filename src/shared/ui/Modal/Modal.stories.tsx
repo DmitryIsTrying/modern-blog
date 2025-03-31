@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Modal } from "./Modal";
 
 const meta = {
@@ -21,12 +21,20 @@ type Story = StoryObj<typeof meta>;
 export const Classic: Story = {
     render: (args) => {
         const [isOpen, setIsOpen] = useState(args.isOpen);
+        const [modifiedArgs, setModifiedArgs] = useState(args); // Создаём локальную копию
 
         const handleOnClose = useCallback(() => {
             args.onClose();
             setIsOpen(false);
         }, [args.onClose]);
 
-        return <Modal {...args} isOpen={isOpen} onClose={handleOnClose} />;
+        useEffect(() => {
+            setModifiedArgs({
+                ...args,
+                element: document.getElementById("storybook-container") || document.body,
+            });
+        }, [args]);
+
+        return <Modal {...modifiedArgs} isOpen={isOpen} onClose={handleOnClose} />;
     },
 };

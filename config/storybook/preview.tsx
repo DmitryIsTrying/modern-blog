@@ -6,12 +6,11 @@ import "app/styles/index.scss";
 import { CSSProperties } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-const getStyle = (theme: Theme): CSSProperties => {
+const getStyle = (): CSSProperties => {
     return {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: theme === Theme.LIGHT ? "white" : "black",
     };
 };
 
@@ -25,12 +24,12 @@ const preview: Preview = {
     decorators: [
         // 👇 Defining the decorator in the preview file applies it to all stories
         (Story, context) => {
-            const theme = (context.globals.theme || "light") as Theme;
+            const theme = (context.globals.theme || Theme.LIGHT) as Theme;
 
             return (
                 <StoreProvider>
                     <BrowserRouter>
-                        <div style={getStyle(theme)} className={`app ${theme}`}>
+                        <div id="storybook-container" style={getStyle()} className={`app ${theme}`}>
                             <Story />
                         </div>
                     </BrowserRouter>
@@ -62,14 +61,18 @@ const preview: Preview = {
                 title: "Theme",
                 icon: "circlehollow",
                 // Array of plain string values or MenuItem shape (see below)
-                items: [...Object.values(Theme)],
+                items: Object.values(Theme).map((theme) => ({
+                    title: theme.split("_")[1].slice(0, 1).toUpperCase() + theme.split("_")[1].slice(1),
+                    value: theme,
+                    icon: "component",
+                })),
                 // Change title based on selected value
                 dynamicTitle: true,
             },
         },
     },
     initialGlobals: {
-        theme: "light",
+        theme: Theme.LIGHT,
     },
 };
 
