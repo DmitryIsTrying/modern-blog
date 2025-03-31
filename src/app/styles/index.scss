@@ -11,6 +11,8 @@
 .app, .app_error {
     min-height: 100vh;
     background: var(--bg-color);
+    font: var(--font-m);
+    color: var(--primary-color);
 }
 
 .contentPage {
