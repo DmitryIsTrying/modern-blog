@@ -64,14 +64,14 @@ module.exports = [
             "i18next/no-literal-string": ["error", { markupOnly: true, ignoreAttribute: ["data-testid", "to"] }],
         },
     },
-
+    require("eslint-config-prettier").configs.recommended,
     // Prettier интеграция (должен быть последним!)
     {
         plugins: {
             prettier: pluginPrettier,
         },
         rules: {
-            "prettier/prettier": "error",
+            "prettier/prettier": "warn",
         },
     },
 ];

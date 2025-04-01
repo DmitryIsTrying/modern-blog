@@ -12,12 +12,14 @@
         "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
         "lint:scss": "npx stylelint \"**/*.scss\"",
         "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
+        "format": "prettier --write .",
         "unit": "jest --config ./config/jest/jest.config.ts",
         "translate": "ts-node ./src/app/translation/lib/fillTranslations.ts",
         "test": "jest",
         "storybook": "storybook dev -p 6006 -c ./config/storybook",
         "build-storybook": "storybook build -c ./config/storybook",
-        "chromatic": "dotenv -e .env -- chromatic"
+        "chromatic": "dotenv -e .env -- chromatic",
+        "prepare": "husky install"
     },
     "keywords": [],
     "author": "",
@@ -69,6 +71,7 @@
         "file-loader": "^6.2.0",
         "globals": "^16.0.0",
         "html-webpack-plugin": "^5.5.0",
+        "husky": "^8.0.0",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^27.5.1",
         "json-server": "^0.17.4",
