@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { PageError } from "./PageError";
+import type { Meta, StoryObj } from '@storybook/react'
+import { PageError } from './PageError'
 
 const meta = {
-    title: "widgets/PageError",
-    component: PageError,
-    tags: ["widgets"],
-    argTypes: {
-        className: {
-            control: "text",
-        },
+  title: 'widgets/PageError',
+  component: PageError,
+  tags: ['widgets'],
+  argTypes: {
+    className: {
+      control: 'text',
     },
-} satisfies Meta<typeof PageError>;
+  },
+} satisfies Meta<typeof PageError>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Classic: Story = {};
+export const Classic: Story = {}
