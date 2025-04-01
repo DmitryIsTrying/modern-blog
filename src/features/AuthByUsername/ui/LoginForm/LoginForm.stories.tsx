@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react'
 
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from './LoginForm'
 
 const meta = {
-    title: "features/LoginForm",
-    component: LoginForm,
-    tags: ["ui", "feature"],
-} satisfies Meta<typeof LoginForm>;
+  title: 'features/LoginForm',
+  component: LoginForm,
+  tags: ['ui', 'feature'],
+} satisfies Meta<typeof LoginForm>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Classic: Story = {};
+export const Classic: Story = {}

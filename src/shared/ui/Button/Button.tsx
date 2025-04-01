@@ -1,44 +1,44 @@
-import { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 
-import { classNames } from "@/shared/lib/classNames/classNames";
-import cls from "./Button.module.scss";
+import { classNames } from '@/shared/lib/classNames/classNames'
+import cls from './Button.module.scss'
 
 export enum ButtonTheme {
-    CLEAR = "clear",
-    CLEAR_INVERTED = "clearInverted",
-    OUTLINE = "outline",
-    BACKGROUND = "background",
-    BACKGROUND_INVERTED = "backgroundInverted",
+  CLEAR = 'clear',
+  CLEAR_INVERTED = 'clearInverted',
+  OUTLINE = 'outline',
+  BACKGROUND = 'background',
+  BACKGROUND_INVERTED = 'backgroundInverted',
 }
 
 export enum ButtonSize {
-    M = "size_m",
-    L = "size_l",
-    XL = "size_xl",
+  M = 'size_m',
+  L = 'size_l',
+  XL = 'size_xl',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    className?: string;
-    theme?: ButtonTheme;
-    square?: boolean;
-    size?: ButtonSize;
+  className?: string
+  theme?: ButtonTheme
+  square?: boolean
+  size?: ButtonSize
 }
 
 export const Button = ({
-    className,
-    children,
-    square,
-    size = ButtonSize.M,
-    theme = ButtonTheme.CLEAR,
-    ...props
+  className,
+  children,
+  square,
+  size = ButtonSize.M,
+  theme = ButtonTheme.CLEAR,
+  ...props
 }: PropsWithChildren<ButtonProps>) => {
-    const mods: Record<string, boolean> = {
-        [cls.square]: square,
-    };
+  const mods: Record<string, boolean> = {
+    [cls.square]: square,
+  }
 
-    return (
-        <button className={classNames(cls.button, mods, [className, cls[theme], cls[size]])} {...props}>
-            {children}
-        </button>
-    );
-};
+  return (
+    <button className={classNames(cls.button, mods, [className, cls[theme], cls[size]])} {...props}>
+      {children}
+    </button>
+  )
+}
