@@ -3,7 +3,7 @@ import { Theme } from '@/app/providers/ThemeProvider'
 import type { Preview } from '@storybook/react'
 
 import 'app/styles/index.scss'
-import { CSSProperties } from 'react'
+import { CSSProperties, Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 const getStyle = (): CSSProperties => {
@@ -25,15 +25,18 @@ const preview: Preview = {
     // 👇 Defining the decorator in the preview file applies it to all stories
     (Story, context) => {
       const theme = (context.globals.theme || Theme.LIGHT) as Theme
+      const initialState = context.parameters?.redux?.initialState
 
       return (
-        <StoreProvider>
-          <BrowserRouter>
-            <div id='storybook-container' style={getStyle()} className={`app ${theme}`}>
-              <Story />
-            </div>
-          </BrowserRouter>
-        </StoreProvider>
+        <Suspense fallback=''>
+          <StoreProvider initialState={initialState}>
+            <BrowserRouter>
+              <div id='storybook-container' style={getStyle()} className={`app ${theme}`}>
+                <Story />
+              </div>
+            </BrowserRouter>
+          </StoreProvider>
+        </Suspense>
       )
     },
   ],
