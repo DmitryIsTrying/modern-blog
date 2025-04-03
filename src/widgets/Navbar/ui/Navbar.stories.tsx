@@ -31,3 +31,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Classic: Story = {}
+export const AuthUserNavbar: Story = {
+  parameters: { redux: { initialState: { user: { authData: { id: '123', username: 'admin' } } } } },
+}

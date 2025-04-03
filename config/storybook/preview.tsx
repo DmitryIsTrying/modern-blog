@@ -1,9 +1,11 @@
-import { StoreProvider } from '@/app/providers/StoreProvider'
+import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider'
 import { Theme } from '@/app/providers/ThemeProvider'
+import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice'
+import { DeepPartial, ReducersMapObject } from '@reduxjs/toolkit'
 import type { Preview } from '@storybook/react'
 
 import 'app/styles/index.scss'
-import { CSSProperties } from 'react'
+import { CSSProperties, Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 const getStyle = (): CSSProperties => {
@@ -25,15 +27,26 @@ const preview: Preview = {
     // 👇 Defining the decorator in the preview file applies it to all stories
     (Story, context) => {
       const theme = (context.globals.theme || Theme.LIGHT) as Theme
+      const initialState = context.parameters?.redux?.initialState
+      const additionalAsyncReducers = context.parameters?.redux?.asyncReducers
+
+      const defaultAsyncReducers: DeepPartial<ReducersMapObject<StateSchema>> = {
+        login: loginReducer,
+      }
 
       return (
-        <StoreProvider>
-          <BrowserRouter>
-            <div id='storybook-container' style={getStyle()} className={`app ${theme}`}>
-              <Story />
-            </div>
-          </BrowserRouter>
-        </StoreProvider>
+        <Suspense fallback=''>
+          <StoreProvider
+            asyncReducers={{ ...defaultAsyncReducers, ...additionalAsyncReducers }}
+            initialState={initialState}
+          >
+            <BrowserRouter>
+              <div id='storybook-container' style={getStyle()} className={`app ${theme}`}>
+                <Story />
+              </div>
+            </BrowserRouter>
+          </StoreProvider>
+        </Suspense>
       )
     },
   ],

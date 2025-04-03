@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { LoginForm } from './LoginForm'
+import { default as LoginForm } from './LoginForm'
 
 const meta = {
   title: 'features/LoginForm',
@@ -12,3 +12,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Classic: Story = {}
+export const Loading: Story = {
+  parameters: { redux: { initialState: { login: { isLoading: true } } } },
+}
+export const WithError: Story = {
+  parameters: {
+    redux: { initialState: { login: { error: 'Something went wrong...' } } },
+  },
+}

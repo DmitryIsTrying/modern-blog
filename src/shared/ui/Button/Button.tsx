@@ -30,14 +30,16 @@ export const Button = ({
   square,
   size = ButtonSize.M,
   theme = ButtonTheme.CLEAR,
+  disabled,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   const mods: Record<string, boolean> = {
     [cls.square]: square,
+    [cls.disabled]: disabled,
   }
 
   return (
-    <button className={classNames(cls.button, mods, [className, cls[theme], cls[size]])} {...props}>
+    <button disabled={disabled} className={classNames(cls.button, mods, [className, cls[theme], cls[size]])} {...props}>
       {children}
     </button>
   )
