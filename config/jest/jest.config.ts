@@ -30,6 +30,9 @@ export default {
     '@/(.*)': '<rootDir>/src/$1',
   },
   globals: { __IS_DEV__: true },
+  transformIgnorePatterns: [
+    '/node_modules/(?!axios)/', // Обрабатывать axios как ES6
+  ],
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
