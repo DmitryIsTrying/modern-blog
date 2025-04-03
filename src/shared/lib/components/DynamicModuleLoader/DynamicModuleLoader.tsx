@@ -1,5 +1,5 @@
 import { ReduxStoreWithManager, StateSchemaKey } from '@/app/providers/StoreProvider'
-import { PropsWithRequiredChildren } from '@/shared/lib/customTypes/propsWithRequiredChildren'
+import { PropsWithRequiredChildren } from '@/shared/lib/customTypes/PropsWithRequiredChildren'
 import { Reducer } from '@reduxjs/toolkit'
 import { useEffect } from 'react'
 import { useDispatch, useStore } from 'react-redux'
