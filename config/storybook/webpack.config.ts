@@ -53,6 +53,7 @@ export default ({ config }: { config: webpack.Configuration }) => {
     ...(config.plugins || []),
     new webpack.DefinePlugin({
       __IS_DEV__: true,
+      __API_URL__: JSON.stringify(''),
     }),
   ]
 

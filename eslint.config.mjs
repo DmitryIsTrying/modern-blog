@@ -17,6 +17,7 @@ export default [
         ...globals.browser,
         ...globals.node,
         __IS_DEV__: true,
+        __API_URL__: true,
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
