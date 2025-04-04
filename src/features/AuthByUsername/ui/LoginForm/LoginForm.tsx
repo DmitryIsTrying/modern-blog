@@ -1,11 +1,12 @@
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button'
 import { Input } from '@/shared/ui/Input/Input'
 import { Text, TextTheme } from '@/shared/ui/Text/Text'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError'
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading'
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword'
@@ -16,16 +17,17 @@ import cls from './LoginForm.module.scss'
 
 export interface LoginFormProps {
   className?: string
+  onSuccess?: () => void
 }
 
 const initialReducers: ReducersList = {
   login: loginReducer,
 }
 
-const LoginForm = ({ className }: LoginFormProps) => {
+const LoginForm = ({ className, onSuccess }: LoginFormProps) => {
   const { t } = useTranslation()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const username = useSelector(getLoginUsername)
   const password = useSelector(getLoginPassword)
@@ -40,9 +42,12 @@ const LoginForm = ({ className }: LoginFormProps) => {
     dispatch(loginActions.setPassword(value))
   }, [])
 
-  const onLoginClick = useCallback(() => {
-    dispatch(loginByUsername({ password, username }))
-  }, [username, password])
+  const onLoginClick = useCallback(async () => {
+    const result = await dispatch(loginByUsername({ password, username }))
+    if (result.meta.requestStatus === 'fulfilled') {
+      onSuccess?.()
+    }
+  }, [onSuccess, username, password])
 
   return (
     <DynamicModuleLoader removeOnUnmount reducers={initialReducers}>
