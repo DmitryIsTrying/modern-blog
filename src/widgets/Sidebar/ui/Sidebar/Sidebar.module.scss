@@ -31,35 +31,10 @@
     justify-content: center;
 }
 
-.item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.icon {
-    fill: var(--inverted-secondary-color);
-    flex-shrink: 0;
-}
-
-.link {
-    opacity: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    transition:
-        opacity 0.5s,
-        width 0.5s;
-}
-
 .collapsed {
     width: var(--sidebar-width-collapsed);
 
     .switchers {
         flex-direction: column;
-    }
-
-    .link {
-        width: 0;
-        opacity: 0;
     }
 }

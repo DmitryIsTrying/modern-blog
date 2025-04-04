@@ -32,7 +32,7 @@ export const DynamicModuleLoader = ({
       if (removeOnUnmount) {
         for (const key in reducers) {
           const typedKey = key as StateSchemaKey
-          store.reducerManager.add(typedKey, reducers[typedKey])
+          store.reducerManager.remove(typedKey)
           dispatch({ type: `@DESTROY ${typedKey} reducer` })
         }
       }
