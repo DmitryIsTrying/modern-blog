@@ -1,7 +1,7 @@
 import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider'
 import { Theme } from '@/app/providers/ThemeProvider'
 import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice'
-import { DeepPartial, ReducersMapObject } from '@reduxjs/toolkit'
+import { ReducersMapObject } from '@reduxjs/toolkit'
 import type { Preview } from '@storybook/react'
 
 import 'app/styles/index.scss'
