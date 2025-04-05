@@ -24,7 +24,7 @@ export const Classic: Story = {
     const [modifiedArgs, setModifiedArgs] = useState(args) // Создаём локальную копию
 
     const handleOnClose = useCallback(() => {
-      args.onClose()
+      args.onClose?.()
       setIsOpen(false)
     }, [args.onClose])
 

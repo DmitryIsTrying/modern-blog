@@ -24,7 +24,7 @@ export const DynamicModuleLoader = ({
   useEffect(() => {
     for (const key in reducers) {
       const typedKey = key as StateSchemaKey
-      store.reducerManager.add(typedKey, reducers[typedKey])
+      store.reducerManager.add(typedKey, reducers[typedKey]!)
       dispatch({ type: `@INIT ${typedKey} reducer` })
     }
 

@@ -1,5 +1,4 @@
 import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider'
-import { DeepPartial } from '@reduxjs/toolkit'
 import { render } from '@testing-library/react'
 
 import { ReactNode } from 'react'
@@ -13,8 +12,8 @@ export interface componentRenderOptions {
 export function componentRender(children: ReactNode, options: componentRenderOptions = {}) {
   const { route = '/', initialState } = options
   return render(
-    <StoreProvider initialState={initialState}>
-      <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
-    </StoreProvider>,
+    <MemoryRouter initialEntries={[route]}>
+      <StoreProvider initialState={initialState}>{children}</StoreProvider>
+    </MemoryRouter>,
   )
 }

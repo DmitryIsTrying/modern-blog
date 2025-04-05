@@ -1,7 +1,7 @@
 import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider'
 import { Theme } from '@/app/providers/ThemeProvider'
 import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice'
-import { DeepPartial, ReducersMapObject } from '@reduxjs/toolkit'
+import { ReducersMapObject } from '@reduxjs/toolkit'
 import type { Preview } from '@storybook/react'
 
 import 'app/styles/index.scss'
@@ -36,16 +36,16 @@ const preview: Preview = {
 
       return (
         <Suspense fallback=''>
-          <StoreProvider
-            asyncReducers={{ ...defaultAsyncReducers, ...additionalAsyncReducers }}
-            initialState={initialState}
-          >
-            <BrowserRouter>
+          <BrowserRouter>
+            <StoreProvider
+              asyncReducers={{ ...defaultAsyncReducers, ...additionalAsyncReducers }}
+              initialState={initialState}
+            >
               <div id='storybook-container' style={getStyle()} className={`app ${theme}`}>
                 <Story />
               </div>
-            </BrowserRouter>
-          </StoreProvider>
+            </StoreProvider>
+          </BrowserRouter>
         </Suspense>
       )
     },

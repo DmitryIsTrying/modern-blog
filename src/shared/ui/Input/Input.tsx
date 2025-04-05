@@ -19,7 +19,7 @@ export const Input = memo(
   ({ className, theme = InputTheme.PRIMARY, onChange, type = 'text', autoFocus, ...otherProps }: InputProps) => {
     const [isFocused, setIsFocused] = useState(false)
     const [caretPosition, setCaretPosition] = useState(0)
-    const ref = useRef<HTMLInputElement>()
+    const ref = useRef<HTMLInputElement>(null)
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.value)
@@ -41,10 +41,8 @@ export const Input = memo(
     }
 
     useEffect(() => {
-      if (autoFocus) {
+      if (autoFocus && ref.current) {
         setIsFocused(true)
-        console.log('WORKING HERE')
-
         ref.current.focus()
       }
     }, [autoFocus])

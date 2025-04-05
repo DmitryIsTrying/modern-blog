@@ -1,6 +1,7 @@
-import { profileReducer } from '@/entities/Profile'
+import { fetchProfileData, ProfileCard, profileReducer } from '@/entities/Profile'
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import { useTranslation } from 'react-i18next'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { useEffect } from 'react'
 
 interface ProfilePageProps {
   className?: string
@@ -10,10 +11,17 @@ const reducers: ReducersList = { profile: profileReducer }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ProfilePage = ({ className }: ProfilePageProps) => {
-  const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchProfileData())
+  }, [])
+
   return (
     <DynamicModuleLoader removeOnUnmount reducers={reducers}>
-      <div>{t('PROFILE PAGE')}</div>
+      <div>
+        <ProfileCard />
+      </div>
     </DynamicModuleLoader>
   )
 }
