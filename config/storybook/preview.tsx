@@ -36,16 +36,16 @@ const preview: Preview = {
 
       return (
         <Suspense fallback=''>
-          <StoreProvider
-            asyncReducers={{ ...defaultAsyncReducers, ...additionalAsyncReducers }}
-            initialState={initialState}
-          >
-            <BrowserRouter>
+          <BrowserRouter>
+            <StoreProvider
+              asyncReducers={{ ...defaultAsyncReducers, ...additionalAsyncReducers }}
+              initialState={initialState}
+            >
               <div id='storybook-container' style={getStyle()} className={`app ${theme}`}>
                 <Story />
               </div>
-            </BrowserRouter>
-          </StoreProvider>
+            </StoreProvider>
+          </BrowserRouter>
         </Suspense>
       )
     },
