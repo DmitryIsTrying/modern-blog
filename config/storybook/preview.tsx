@@ -4,7 +4,8 @@ import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice'
 import { ReducersMapObject } from '@reduxjs/toolkit'
 import type { Preview } from '@storybook/react'
 
-import 'app/styles/index.scss'
+import '@/app/styles/index.scss'
+
 import { CSSProperties, Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
