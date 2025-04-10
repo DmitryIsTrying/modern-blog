@@ -53,6 +53,14 @@ export default ({ config }: { config: webpack.Configuration }) => {
       ],
     },
     buildCssLoaders(true),
+    {
+      test: /\.(png|jpe?g|gif|woff2|woff)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+        },
+      ],
+    },
   )
 
   // Инициализация plugins, если их нет

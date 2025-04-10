@@ -1,4 +1,4 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
+import { classNames, Mods } from '@/shared/lib/classNames/classNames'
 import { ChangeEvent, InputHTMLAttributes, memo, useEffect, useRef, useState } from 'react'
 import cls from './Input.module.scss'
 
@@ -6,17 +6,26 @@ export enum InputTheme {
   PRIMARY = 'primary',
 }
 
-type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
+type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'readOnly'>
 
 interface InputProps extends HTMLInputProps {
   className?: string
   theme?: InputTheme
-  value?: string
+  value?: string | number
   onChange?: (value: string) => void
+  readOnly?: boolean
 }
 
 export const Input = memo(
-  ({ className, theme = InputTheme.PRIMARY, onChange, type = 'text', autoFocus, ...otherProps }: InputProps) => {
+  ({
+    className,
+    theme = InputTheme.PRIMARY,
+    onChange,
+    type = 'text',
+    autoFocus,
+    readOnly,
+    ...otherProps
+  }: InputProps) => {
     const [isFocused, setIsFocused] = useState(false)
     const [caretPosition, setCaretPosition] = useState(0)
     const ref = useRef<HTMLInputElement>(null)
@@ -30,7 +39,7 @@ export const Input = memo(
     }
 
     const handleOnFocus = () => {
-      setIsFocused(true)
+      if (!readOnly) setIsFocused(true)
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,6 +47,10 @@ export const Input = memo(
       if (e.target.clientWidth > e?.target?.selectionStart * 13) {
         setCaretPosition(e?.target?.selectionStart || 0)
       }
+    }
+
+    const mods: Mods = {
+      [cls.readOnly]: readOnly,
     }
 
     useEffect(() => {
@@ -51,10 +64,11 @@ export const Input = memo(
       <div className={cls.wrapper}>
         <input
           {...otherProps}
+          readOnly={readOnly}
           ref={ref}
           type={type}
           onChange={handleOnChange}
-          className={classNames(cls.input, {}, [className, cls[theme]])}
+          className={classNames(cls.input, mods, [className, cls[theme]])}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           onSelect={handleOnSelect}

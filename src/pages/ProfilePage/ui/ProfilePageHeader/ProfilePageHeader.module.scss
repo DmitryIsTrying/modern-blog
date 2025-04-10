@@ -1,0 +1,10 @@
+.profilePageHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
