@@ -1,4 +1,4 @@
-import { AnyAction, configureStore, Dispatch, ReducersMapObject, ThunkDispatch } from '@reduxjs/toolkit'
+import { configureStore, Dispatch, ReducersMapObject, ThunkDispatch } from '@reduxjs/toolkit'
 
 import { counterReducer } from '@/entities/Counter'
 import { userReducer } from '@/entities/User'
@@ -39,4 +39,6 @@ export function createReduxStore(
   return store
 }
 
-export type AppDispatch = Dispatch<AnyAction> & ThunkDispatch<StateSchema, ThunkExtraArg, AnyAction>
+type CustomAnyAction = { type: string; payload: unknown }
+
+export type AppDispatch = Dispatch<CustomAnyAction> & ThunkDispatch<StateSchema, ThunkExtraArg, CustomAnyAction>
