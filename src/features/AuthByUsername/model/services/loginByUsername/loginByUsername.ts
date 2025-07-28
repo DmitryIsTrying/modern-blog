@@ -1,8 +1,9 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
+
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 import { User, userActions } from '@/entities/User'
 import i18n from '@/shared/config/i18n/i18n'
 import { USER_LOCALSTORAGE_KEY } from '@/shared/const/localStorage'
-import { createAsyncThunk } from '@reduxjs/toolkit'
 
 interface LoginByUsernameProps {
   username: string
@@ -23,8 +24,7 @@ export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, Thun
 
       extra.navigate?.('/about')
       return response.data
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
+    } catch {
       return rejectWithValue(i18n.t('Вы ввели неверный логин или пароль'))
     }
   },

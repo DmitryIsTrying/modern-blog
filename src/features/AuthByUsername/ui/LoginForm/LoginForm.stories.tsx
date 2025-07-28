@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-
 import { default as LoginForm } from './LoginForm'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'features/LoginForm',

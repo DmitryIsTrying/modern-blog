@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
-
 import { Input, InputTheme } from './Input'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'shared/Input',
