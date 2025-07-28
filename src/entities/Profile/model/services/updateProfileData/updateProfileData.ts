@@ -1,20 +1,31 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
+
+import { Profile, ValidateProfileError } from '../../types/profile'
+import { validateProfileData } from '../validateProfileData/validateProfileData'
+
 import { ThunkConfig } from '@/app/providers/StoreProvider'
 import { getProfileForm } from '@/entities/Profile/model/selectors/getProfileForm/getProfileForm'
-import i18n from '@/shared/config/i18n/i18n'
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Profile } from '../../types/profile'
 
-export const updateProfileData = createAsyncThunk<Profile, void, ThunkConfig<string>>(
+export const updateProfileData = createAsyncThunk<Profile, void, ThunkConfig<ValidateProfileError[]>>(
   'profile/updateProfileData',
   async (_, { extra, rejectWithValue, getState }) => {
     const formData = getProfileForm(getState())
+    const errors = validateProfileData(formData)
+
+    if (errors.length) {
+      return rejectWithValue(errors)
+    }
 
     try {
       const response = await extra.api.put<Profile>('profile', formData)
 
+      if (!response.data) {
+        throw new Error('empty data')
+      }
+
       return response.data
     } catch {
-      return rejectWithValue(i18n.t('Произошла ошибка при обновлении профиля'))
+      return rejectWithValue([ValidateProfileError.SERVER_ERROR])
     }
   },
 )

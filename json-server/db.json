@@ -26,12 +26,12 @@
     }
   ],
   "profile": {
-    "first": "FirstName2",
+    "first": "FirstName23",
     "lastname": "LastName1",
     "age": 21,
-    "currency": "RUB",
+    "currency": "EUR",
     "country": "Russia",
-    "city": "Moscow",
+    "city": "Moscoww",
     "username": "main_admin",
     "avatar": "https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg"
   }

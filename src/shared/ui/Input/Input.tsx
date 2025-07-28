@@ -1,6 +1,8 @@
-import { classNames, Mods } from '@/shared/lib/classNames/classNames'
 import { ChangeEvent, InputHTMLAttributes, memo, useEffect, useRef, useState } from 'react'
+
 import cls from './Input.module.scss'
+
+import { classNames, Mods } from '@/shared/lib/classNames/classNames'
 
 export enum InputTheme {
   PRIMARY = 'primary',

@@ -1,7 +1,8 @@
-import { StateSchema } from '@/app/providers/StoreProvider'
+import { DeepPartial } from '@reduxjs/toolkit'
+
 import { getCounterValue } from './getCounterValue'
 
-import { DeepPartial } from '@reduxjs/toolkit'
+import { StateSchema } from '@/app/providers/StoreProvider'
 
 describe('getCounterValue', () => {
   test('should return counter value', () => {

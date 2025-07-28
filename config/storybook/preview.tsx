@@ -1,12 +1,15 @@
-import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider'
-import { Theme } from '@/app/providers/ThemeProvider'
-import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice'
 import { ReducersMapObject } from '@reduxjs/toolkit'
-import type { Preview } from '@storybook/react'
-
-import 'app/styles/index.scss'
 import { CSSProperties, Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
+
+import type { Preview } from '@storybook/react'
+
+import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider'
+import { Theme } from '@/app/providers/ThemeProvider'
+import { profileReducer } from '@/entities/Profile'
+import { loginReducer } from '@/features/AuthByUsername'
+
+import 'app/styles/index.scss'
 
 const getStyle = (): CSSProperties => {
   return {
@@ -32,6 +35,7 @@ const preview: Preview = {
 
       const defaultAsyncReducers: DeepPartial<ReducersMapObject<StateSchema>> = {
         login: loginReducer,
+        profile: profileReducer,
       }
 
       return (

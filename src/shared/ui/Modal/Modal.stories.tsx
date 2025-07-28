@@ -1,7 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
 import { useCallback, useEffect, useState } from 'react'
+
 import { Modal } from './Modal'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'shared/Modal',

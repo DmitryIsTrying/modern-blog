@@ -1,6 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { CSSProperties } from 'react'
+
 import { NotFoundPage } from './NotFoundPage'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const style: CSSProperties = {
   height: '100vh',
