@@ -1,12 +1,13 @@
 import { memo, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+
+import cls from './Navbar.module.scss'
 
 import { getUserAuthData, userActions } from '@/entities/User'
 import { LoginModal } from '@/features/AuthByUsername'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button'
-import { useDispatch, useSelector } from 'react-redux'
-import cls from './Navbar.module.scss'
 
 interface NavbarProps {
   className?: string

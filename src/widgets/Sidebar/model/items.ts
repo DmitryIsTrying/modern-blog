@@ -1,8 +1,9 @@
+import { FunctionComponent, SVGAttributes } from 'react'
+
 import AboutIcon from '@/shared/assets/icons/about-icon.svg'
 import MainIcon from '@/shared/assets/icons/main-icon.svg'
 import ProfileIcon from '@/shared/assets/icons/profile-icon.svg.svg'
 import { RoutePath } from '@/shared/config/routeConfig/routeConfig'
-import { FunctionComponent, SVGAttributes } from 'react'
 
 export interface SidebarItemType {
   path: string

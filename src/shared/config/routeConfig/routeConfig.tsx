@@ -1,8 +1,9 @@
+import { RouteProps } from 'react-router-dom'
+
 import { AboutPage } from '@/pages/AboutPage'
 import { MainPage } from '@/pages/MainPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { ProfilePage } from '@/pages/ProfilePage'
-import { RouteProps } from 'react-router-dom'
 
 type AppRoutesProps = RouteProps & {
   isAuthOnly?: boolean

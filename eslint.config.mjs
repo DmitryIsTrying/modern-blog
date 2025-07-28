@@ -1,5 +1,6 @@
 import js from '@eslint/js'
 import prettierConfig from 'eslint-config-prettier'
+import eslintPluginImport from 'eslint-plugin-import'
 import prettierPlugin from 'eslint-plugin-prettier'
 import reactPlugin from 'eslint-plugin-react'
 import globals from 'globals'
@@ -18,6 +19,7 @@ export default [
         ...globals.node,
         __IS_DEV__: true,
         __API_URL__: true,
+        __PROJECT__: true,
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
@@ -48,6 +50,33 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'react/jsx-props-no-spreading': 'off',
       'react/function-component-definition': 'off',
+    },
+  },
+
+  // Правила сортировки импортов
+  {
+    plugins: {
+      import: eslintPluginImport,
+    },
+    rules: {
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin', // Встроенные модули (fs, path)
+            'external', // Внешние библиотеки (react, lodash)
+            'internal', // Внутренние алиасы (@/entities)
+            ['parent', 'sibling', 'index'], // Относительные пути (../, ./)
+            'object', // Импорты-объекты (стили)
+            'type', // Типы (TypeScript)
+          ],
+          'newlines-between': 'always', // Пустые строки между группами
+          alphabetize: {
+            order: 'asc', // Сортировка A -> Z
+            caseInsensitive: true, // Без учета регистра
+          },
+        },
+      ],
     },
   },
 

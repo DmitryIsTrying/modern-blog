@@ -1,8 +1,10 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Select, SelectOption } from '@/shared/ui/Select/Select'
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { Country } from '../../model/types/country'
+
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { Select, SelectOption } from '@/shared/ui/Select/Select'
 
 const countries: SelectOption[] = [
   { value: Country.ARMENIA, content: Country.ARMENIA },

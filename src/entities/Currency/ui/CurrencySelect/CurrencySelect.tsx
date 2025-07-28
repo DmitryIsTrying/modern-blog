@@ -1,8 +1,10 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Select, SelectOption } from '@/shared/ui/Select/Select'
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { Currency } from '../../model/types/currency.types'
+
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { Select, SelectOption } from '@/shared/ui/Select/Select'
 
 const currency: SelectOption[] = [
   { value: Currency.EUR, content: Currency.EUR },

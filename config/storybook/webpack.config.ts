@@ -1,5 +1,7 @@
 import path from 'path'
+
 import webpack, { RuleSetRule } from 'webpack'
+
 import { buildCssLoaders } from '../build/loaders/buildCssLoaders'
 import { BuildPaths } from '../build/types/config'
 
@@ -70,6 +72,7 @@ export default ({ config }: { config: webpack.Configuration }) => {
     new webpack.DefinePlugin({
       __IS_DEV__: true,
       __API_URL__: JSON.stringify(''),
+      __PROJECT__: JSON.stringify('storybook'),
     }),
   )
 

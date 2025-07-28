@@ -1,6 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import { CSSProperties } from 'react'
+
 import { Sidebar } from './Sidebar'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const style: CSSProperties = {
   width: '100%',
