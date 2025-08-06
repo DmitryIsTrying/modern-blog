@@ -1,7 +1,6 @@
 /build
-.vscode
-.idea
 node_modules
-*storybook.log
-/extractedTranslations
-.env*
+.idea
+/storybook-static
+.loki/report.html
+.loki/report.json

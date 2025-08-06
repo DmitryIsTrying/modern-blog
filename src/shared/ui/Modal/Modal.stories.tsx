@@ -1,42 +1,28 @@
-import { fn } from '@storybook/test'
-import { useCallback, useEffect, useState } from 'react'
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Modal } from 'shared/ui/Modal/Modal';
+import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
+import { Theme } from 'app/providers/ThemeProvider';
 
-import { Modal } from './Modal'
+export default {
+    title: 'shared/Modal',
+    component: Modal,
+    argTypes: {
+        backgroundColor: { control: 'color' },
+    },
+} as ComponentMeta<typeof Modal>;
 
-import type { Meta, StoryObj } from '@storybook/react'
+const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
 
-const meta = {
-  title: 'shared/Modal',
-  component: Modal,
-  tags: ['ui'],
-  args: {
-    children:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, facere reiciendis animi cumque eligendi, a minus consequuntur quaerat repellendus eum mollitia nemo odit nihil sapiente iste adipisci voluptates saepe facilis.',
+export const Primary = Template.bind({});
+Primary.args = {
     isOpen: true,
-    onClose: fn(),
-  },
-} satisfies Meta<typeof Modal>
+    children: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid commodi consequatur eligendi impedit incidunt necessitatibus possimus quis saepe sunt totam.\n ',
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Classic: Story = {
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(args.isOpen)
-    const [modifiedArgs, setModifiedArgs] = useState(args) // Создаём локальную копию
-
-    const handleOnClose = useCallback(() => {
-      args.onClose?.()
-      setIsOpen(false)
-    }, [args.onClose])
-
-    useEffect(() => {
-      setModifiedArgs({
-        ...args,
-        element: document.getElementById('storybook-container') || document.body,
-      })
-    }, [args])
-
-    return <Modal {...modifiedArgs} isOpen={isOpen} onClose={handleOnClose} />
-  },
-}
+export const Dark = Template.bind({});
+Dark.args = {
+    isOpen: true,
+    children: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid commodi consequatur eligendi impedit incidunt necessitatibus possimus quis saepe sunt totam.\n ',
+};
+Dark.decorators = [ThemeDecorator(Theme.DARK)];

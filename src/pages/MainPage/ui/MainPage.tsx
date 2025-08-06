@@ -1,16 +1,20 @@
-import { useTranslation } from 'react-i18next'
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Input } from 'shared/ui/Input/Input';
 
-import { Counter } from '@/entities/Counter'
+const MainPage = () => {
+    const { t } = useTranslation();
+    const [value, setValue] = useState('');
 
-function MainPage() {
-  const { t } = useTranslation()
+    const onChange = (val: string) => {
+        setValue(val);
+    };
 
-  return (
-    <div>
-      {t('Главная страница')}
-      <Counter />
-    </div>
-  )
-}
+    return (
+        <div>
+            {t('Главная страница')}
+        </div>
+    );
+};
 
-export default MainPage
+export default MainPage;
