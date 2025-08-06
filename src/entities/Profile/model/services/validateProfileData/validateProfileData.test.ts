@@ -1,46 +1,56 @@
-import { validateProfileData } from './validateProfileData'
+import { Country } from 'entities/Country';
+import { Currency } from 'entities/Currency';
+import { ValidateProfileError } from 'entities/Profile';
+import { validateProfileData } from './validateProfileData';
 
-import { Country } from '@/entities/Country'
-import { Currency } from '@/entities/Currency'
-import { ValidateProfileError } from '@/entities/Profile/model/types/profile'
+const data = {
+    username: 'admin',
+    age: 22,
+    country: Country.Ukraine,
+    lastname: 'ulbi tv',
+    first: 'asd',
+    city: 'asf',
+    currency: Currency.USD,
+};
 
-describe('validateProfileData', () => {
-  test('good data', async () => {
-    const data = {
-      first: 'Yellow',
-      lastname: 'Black',
-      age: 19,
-      currency: Currency.RUB,
-      country: Country.RUSSIA,
-      city: 'Moscow',
-      username: 'altair',
-      avatar: 'path/to/avatar',
-    }
+describe('validateProfileData.test', () => {
+    test('success', async () => {
+        const result = validateProfileData(data);
 
-    const result = validateProfileData(data)
+        expect(result).toEqual([]);
+    });
 
-    expect(result).toHaveLength(0)
-  })
+    test('without first and last name', async () => {
+        const result = validateProfileData({ ...data, first: '', lastname: '' });
 
-  test('empty data', async () => {
-    const data = {}
+        expect(result).toEqual([
+            ValidateProfileError.INCORRECT_USER_DATA,
+        ]);
+    });
 
-    const result = validateProfileData(data)
+    test('incorrect age', async () => {
+        const result = validateProfileData({ ...data, age: undefined });
 
-    expect(result).toHaveLength(3)
-    expect(result).toEqual([
-      ValidateProfileError.INCORRECT_USER_DATA,
-      ValidateProfileError.INCORRECT_AGE,
-      ValidateProfileError.INCORRECT_COUNTRY,
-    ])
-  })
+        expect(result).toEqual([
+            ValidateProfileError.INCORRECT_AGE,
+        ]);
+    });
 
-  test('no user data', async () => {
-    const data = undefined
+    test('incorrect country', async () => {
+        const result = validateProfileData({ ...data, country: undefined });
 
-    const result = validateProfileData(data)
+        expect(result).toEqual([
+            ValidateProfileError.INCORRECT_COUNTRY,
+        ]);
+    });
 
-    expect(result).toHaveLength(1)
-    expect(result).toEqual([ValidateProfileError.NO_DATA])
-  })
-})
+    test('incorrect all', async () => {
+        const result = validateProfileData({});
+
+        expect(result).toEqual([
+            ValidateProfileError.INCORRECT_USER_DATA,
+            ValidateProfileError.INCORRECT_AGE,
+            ValidateProfileError.INCORRECT_COUNTRY,
+        ]);
+    });
+});

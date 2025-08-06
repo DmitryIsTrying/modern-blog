@@ -2,25 +2,24 @@
 @import "variables/global";
 @import "themes/normal";
 @import "themes/dark";
-@import "themes/red";
+@import "themes/orange";
 
-.body {
+.app,
+.app_modal {
     font: var(--font-m);
     color: var(--primary-color);
 }
 
-.app, .app_error {
-    min-height: 100vh;
+.app {
     background: var(--bg-color);
-    font: var(--font-m);
-    color: var(--primary-color);
+    min-height: 100vh;
 }
 
-.contentPage {
+.content-page {
     display: flex;
 }
 
-.pageWrapper {
+.page-wrapper {
     flex-grow: 1;
     padding: 20px;
 }

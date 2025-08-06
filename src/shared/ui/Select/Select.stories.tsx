@@ -1,22 +1,22 @@
-import { Select } from './Select'
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Select } from 'shared/ui/Select/Select';
 
-import type { Meta, StoryObj } from '@storybook/react'
+export default {
+    title: 'shared/Select',
+    component: Select,
+    argTypes: {
+        backgroundColor: { control: 'color' },
+    },
+} as ComponentMeta<typeof Select>;
 
-const meta = {
-  title: 'shared/Select',
-  component: Select,
-  tags: ['shared'],
-  args: {
-    label: 'TEST LABEL',
+const Template: ComponentStory<typeof Select> = (args) => <Select {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+    label: 'Укажите значение',
     options: [
-      { content: 'First option', value: '1' },
-      { content: 'Second option', value: '2' },
-      { content: 'Third option', value: '3' },
+        { value: '123', content: 'Первый пункт' },
+        { value: '1234', content: 'Второй пункт' },
     ],
-  },
-} satisfies Meta<typeof Select>
-
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Classic: Story = {}
+};

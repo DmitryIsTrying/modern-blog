@@ -1,44 +1,39 @@
-import { memo, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-
-import { Currency } from '../../model/types/currency.types'
-
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Select, SelectOption } from '@/shared/ui/Select/Select'
-
-const currency: SelectOption[] = [
-  { value: Currency.EUR, content: Currency.EUR },
-  { value: Currency.RUB, content: Currency.RUB },
-  { value: Currency.USD, content: Currency.USD },
-]
+import { classNames } from 'shared/lib/classNames/classNames';
+import { useTranslation } from 'react-i18next';
+import { Select } from 'shared/ui/Select/Select';
+import { memo, useCallback } from 'react';
+import { Currency } from '../../model/types/currency';
 
 interface CurrencySelectProps {
-  className?: string
-  value?: Currency
-  onChange?: (value: Currency) => void
-  readOnly?: boolean
+    className?: string;
+    value?: Currency;
+    onChange?: (value: Currency) => void;
+    readonly?: boolean;
 }
 
-export const CurrencySelect = memo(({ className, onChange, value, readOnly }: CurrencySelectProps) => {
-  const { t } = useTranslation()
+const options = [
+    { value: Currency.RUB, content: Currency.RUB },
+    { value: Currency.EUR, content: Currency.EUR },
+    { value: Currency.USD, content: Currency.USD },
+];
 
-  const onChangeHandler = useCallback(
-    (value: string) => {
-      onChange?.(value as Currency)
-    },
-    [onChange],
-  )
+export const CurrencySelect = memo(({
+    className, value, onChange, readonly,
+}: CurrencySelectProps) => {
+    const { t } = useTranslation();
 
-  return (
-    <Select
-      value={value}
-      onChange={onChangeHandler}
-      className={classNames('', {}, [className])}
-      options={currency}
-      label={t('Укажите валюту')}
-      readOnly={readOnly}
-    />
-  )
-})
+    const onChangeHandler = useCallback((value: string) => {
+        onChange?.(value as Currency);
+    }, [onChange]);
 
-CurrencySelect.displayName = 'CurrencySelect'
+    return (
+        <Select
+            className={classNames('', {}, [className])}
+            label={t('Укажите валюту')}
+            options={options}
+            value={value}
+            onChange={onChangeHandler}
+            readonly={readonly}
+        />
+    );
+});

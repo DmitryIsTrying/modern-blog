@@ -1,25 +1,25 @@
-import { CounterSchema } from './../types/counterSchema'
-import { counterActions, counterReducer } from './counterSlice'
+import { counterReducer, counterActions } from './counterSlice';
+import { CounterSchema } from '../types/counterSchema';
 
-describe('counterSlice', () => {
-  let state: CounterSchema
-  beforeEach(() => {
-    state = { value: 10 }
-  })
+describe('counterSlice.test', () => {
+    test('decrement', () => {
+        const state: CounterSchema = { value: 10 };
 
-  test('should decrement value', () => {
-    expect(counterReducer(state as CounterSchema, counterActions.decrement)).toEqual({ value: 9 })
-  })
+        expect(
+            counterReducer(state, counterActions.decrement()),
+        ).toEqual({ value: 9 });
+    });
+    test('increment', () => {
+        const state: CounterSchema = { value: 10 };
 
-  test('should increment value', () => {
-    expect(counterReducer(state as CounterSchema, counterActions.increment)).toEqual({ value: 11 })
-  })
+        expect(
+            counterReducer(state, counterActions.increment()),
+        ).toEqual({ value: 11 });
+    });
 
-  test('should work with empty state', () => {
-    expect(counterReducer(undefined, counterActions.increment)).toEqual({ value: 1 })
-  })
-
-  test('should work with init state', () => {
-    expect(counterReducer(undefined, { type: undefined })).toEqual({ value: 0 })
-  })
-})
+    test('should work with empty state', () => {
+        expect(
+            counterReducer(undefined, counterActions.increment()),
+        ).toEqual({ value: 1 });
+    });
+});
