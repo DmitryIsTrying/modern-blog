@@ -1,25 +1,11 @@
-.container {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-}
-
 .title {
     font: var(--font-l);
+    color: var(--primary-color);
 }
 
 .text {
     font: var(--font-m);
-}
-
-.primary {
-    .title {
-        color: var(--primary-color);
-    }
-
-    .text {
-        color: var(--secondary-color);
-    }
+    color: var(--secondary-color);
 }
 
 .error {

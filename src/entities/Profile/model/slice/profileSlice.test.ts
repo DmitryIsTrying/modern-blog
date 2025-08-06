@@ -1,66 +1,85 @@
-import { profileActions, profileReducer } from './profileSlice'
-import { Profile, ProfileSchema, ValidateProfileError } from '../types/profile'
+import {
+    profileActions, profileReducer, ProfileSchema, updateProfileData, ValidateProfileError,
+} from 'entities/Profile';
+import { Country } from 'entities/Country';
+import { Currency } from 'entities/Currency';
 
-import { Country } from '@/entities/Country'
-import { Currency } from '@/entities/Currency'
-import { updateProfileData } from '@/entities/Profile/model/services/updateProfileData/updateProfileData'
+const data = {
+    username: 'admin',
+    age: 22,
+    country: Country.Ukraine,
+    lastname: 'ulbi tv',
+    first: 'asd',
+    city: 'asf',
+    currency: Currency.USD,
+};
 
-describe('profileSlice', () => {
-  let state: DeepPartial<ProfileSchema>
-  let form: DeepPartial<Profile>
+describe('profileSlice.test', () => {
+    test('test set readonly', () => {
+        const state: DeepPartial<ProfileSchema> = { readonly: false };
+        expect(profileReducer(
+            state as ProfileSchema,
+            profileActions.setReadonly(true),
+        )).toEqual({ readonly: true });
+    });
 
-  beforeEach(() => {
-    state = {
-      isLoading: false,
-      readonly: true,
-      data: undefined,
-      error: undefined,
-      validateError: [ValidateProfileError.NO_DATA],
-    }
+    test('test cancel edit', () => {
+        const state: DeepPartial<ProfileSchema> = { data, form: { username: '' } };
 
-    form = {
-      first: 'Yellow',
-      lastname: 'Black',
-      age: 19,
-      currency: Currency.RUB,
-      country: Country.RUSSIA,
-      city: 'Moscow',
-      username: 'altair',
-      avatar: 'path/to/avatar',
-    }
-  })
+        expect(profileReducer(
+            state as ProfileSchema,
+            profileActions.cancelEdit(),
+        )).toEqual({
+            readonly: true,
+            validateErrors: undefined,
+            data,
+            form: data,
+        });
+    });
 
-  test('test set readonly', () => {
-    const action = profileActions.setReadonly(false)
-    const changedState = profileReducer(state as ProfileSchema, action)
-    expect(changedState.readonly).toBe(false)
-  })
+    test('test update profile', () => {
+        const state: DeepPartial<ProfileSchema> = { form: { username: '123' } };
 
-  test('test update profile', () => {
-    const action = profileActions.updateProfile(form)
-    const changedState = profileReducer(state as ProfileSchema, action)
-    expect(changedState.form).toEqual(form)
-  })
+        expect(profileReducer(
+            state as ProfileSchema,
+            profileActions.updateProfile({
+                username: '123456',
+            }),
+        )).toEqual({
+            form: { username: '123456' },
+        });
+    });
 
-  test('test cancel edit', () => {
-    const action = profileActions.cancelEdit()
-    const changedState = profileReducer(state as ProfileSchema, action)
-    expect(changedState.form).toBeUndefined()
-  })
+    test('test update profile service pending', () => {
+        const state: DeepPartial<ProfileSchema> = {
+            isLoading: false,
+            validateErrors: [ValidateProfileError.SERVER_ERROR],
+        };
 
-  test('test extra updateProfileData pending', () => {
-    const action = updateProfileData.pending
-    const changedState = profileReducer(state as ProfileSchema, action)
-    expect(changedState.validateError).toBeUndefined()
-    expect(changedState.isLoading).toBeTruthy()
-  })
+        expect(profileReducer(
+            state as ProfileSchema,
+            updateProfileData.pending,
+        )).toEqual({
+            isLoading: true,
+            validateErrors: undefined,
+        });
+    });
 
-  test('test extra updateProfileData fulfilled', () => {
-    const action = updateProfileData.fulfilled(form, '')
-    const changedState = profileReducer(state as ProfileSchema, action)
-    expect(changedState.form).toEqual(form)
-    expect(changedState.data).toEqual(form)
-    expect(changedState.readonly).toBeTruthy()
-    expect(changedState.isLoading).toBeFalsy()
-  })
-})
+    test('test update profile service fullfiled', () => {
+        const state: DeepPartial<ProfileSchema> = {
+            isLoading: true,
+        };
+
+        expect(profileReducer(
+            state as ProfileSchema,
+            updateProfileData.fulfilled(data, ''),
+        )).toEqual({
+            isLoading: false,
+            validateErrors: undefined,
+            readonly: true,
+            validateError: undefined,
+            form: data,
+            data,
+        });
+    });
+});

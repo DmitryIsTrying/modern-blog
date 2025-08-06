@@ -1,44 +1,48 @@
-import { Reducer } from '@reduxjs/toolkit'
-import { useEffect } from 'react'
-import { useDispatch, useStore } from 'react-redux'
-
-import { ReduxStoreWithManager, StateSchemaKey } from '@/app/providers/StoreProvider'
-import { PropsWithRequiredChildren } from '@/shared/lib/customTypes/PropsWithRequiredChildren'
+import { FC, useEffect } from 'react';
+import { useDispatch, useStore } from 'react-redux';
+import { ReduxStoreWithManager, StateSchemaKey } from 'app/providers/StoreProvider/config/StateSchema';
+import { Reducer } from '@reduxjs/toolkit';
 
 export type ReducersList = {
-  [name in StateSchemaKey]?: Reducer
+    [name in StateSchemaKey]?: Reducer;
 }
 
-interface DynamicModuleLoader {
-  reducers: ReducersList
-  removeOnUnmount?: boolean
+interface DynamicModuleLoaderProps {
+    reducers: ReducersList;
+    removeAfterUnmount?: boolean;
 }
 
-export const DynamicModuleLoader = ({
-  children,
-  reducers,
-  removeOnUnmount,
-}: PropsWithRequiredChildren<DynamicModuleLoader>) => {
-  const store = useStore() as ReduxStoreWithManager
-  const dispatch = useDispatch()
+export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
+    const {
+        children,
+        reducers,
+        removeAfterUnmount,
+    } = props;
 
-  useEffect(() => {
-    for (const key in reducers) {
-      const typedKey = key as StateSchemaKey
-      store.reducerManager.add(typedKey, reducers[typedKey]!)
-      dispatch({ type: `@INIT ${typedKey} reducer` })
-    }
+    const store = useStore() as ReduxStoreWithManager;
+    const dispatch = useDispatch();
 
-    return () => {
-      if (removeOnUnmount) {
-        for (const key in reducers) {
-          const typedKey = key as StateSchemaKey
-          store.reducerManager.remove(typedKey)
-          dispatch({ type: `@DESTROY ${typedKey} reducer` })
-        }
-      }
-    }
-  }, [])
+    useEffect(() => {
+        Object.entries(reducers).forEach(([name, reducer]) => {
+            store.reducerManager.add(name as StateSchemaKey, reducer);
+            dispatch({ type: `@INIT ${name} reducer` });
+        });
 
-  return <>{children}</>
-}
+        return () => {
+            if (removeAfterUnmount) {
+                Object.entries(reducers).forEach(([name, reducer]) => {
+                    store.reducerManager.remove(name as StateSchemaKey);
+                    dispatch({ type: `@DESTROY ${name} reducer` });
+                });
+            }
+        };
+        // eslint-disable-next-line
+    }, []);
+
+    return (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>
+            {children}
+        </>
+    );
+};

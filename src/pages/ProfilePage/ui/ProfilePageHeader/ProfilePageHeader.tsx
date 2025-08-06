@@ -1,54 +1,70 @@
-import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-
-import cls from './ProfilePageHeader.module.scss'
-
-import { getProfileReadonly, profileActions, updateProfileData } from '@/entities/Profile'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { Button, ButtonTheme } from '@/shared/ui/Button/Button'
-import { Text } from '@/shared/ui/Text/Text'
+import { classNames } from 'shared/lib/classNames/classNames';
+import { Text } from 'shared/ui/Text/Text';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfileReadonly, profileActions, updateProfileData } from 'entities/Profile';
+import { useCallback } from 'react';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import cls from './ProfilePageHeader.module.scss';
 
 interface ProfilePageHeaderProps {
-  className?: string
+    className?: string;
 }
 
-export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
-  const { t } = useTranslation()
+export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
+    const {
+        className,
+    } = props;
 
-  const readonly = useSelector(getProfileReadonly)
-  const dispatch = useAppDispatch()
+    const { t } = useTranslation('profile');
 
-  const onEdit = useCallback(() => {
-    dispatch(profileActions.setReadonly(false))
-  }, [])
+    const readonly = useSelector(getProfileReadonly);
+    const dispatch = useAppDispatch();
 
-  const onCancelEdit = useCallback(() => {
-    dispatch(profileActions.cancelEdit())
-  }, [])
+    const onEdit = useCallback(() => {
+        dispatch(profileActions.setReadonly(false));
+    }, [dispatch]);
 
-  const onSave = useCallback(() => {
-    dispatch(updateProfileData())
-  }, [])
+    const onCancelEdit = useCallback(() => {
+        dispatch(profileActions.cancelEdit());
+    }, [dispatch]);
 
-  return (
-    <div className={classNames(cls.profilePageHeader, {}, [className])}>
-      <Text title={t('Профиль')} />
-      {readonly ? (
-        <Button onClick={onEdit} theme={ButtonTheme.OUTLINE}>
-          {t('Редактировать')}
-        </Button>
-      ) : (
-        <div className={cls.btnsContainer}>
-          <Button onClick={onCancelEdit} theme={ButtonTheme.OUTLINE_RED}>
-            {t('Отменить')}
-          </Button>
-          <Button onClick={onSave} theme={ButtonTheme.OUTLINE}>
-            {t('Сохранить')}
-          </Button>
+    const onSave = useCallback(() => {
+        dispatch(updateProfileData());
+    }, [dispatch]);
+
+    return (
+        <div className={classNames(cls.ProfilePageHeader, {}, [className])}>
+            <Text title={t('Профиль')} />
+            {readonly
+                ? (
+                    <Button
+                        className={cls.editBtn}
+                        theme={ButtonTheme.OUTLINE}
+                        onClick={onEdit}
+                    >
+                        {t('Редактировать')}
+                    </Button>
+                )
+                : (
+                    <>
+                        <Button
+                            className={cls.editBtn}
+                            theme={ButtonTheme.OUTLINE_RED}
+                            onClick={onCancelEdit}
+                        >
+                            {t('Отменить')}
+                        </Button>
+                        <Button
+                            className={cls.saveBtn}
+                            theme={ButtonTheme.OUTLINE}
+                            onClick={onSave}
+                        >
+                            {t('Сохранить')}
+                        </Button>
+                    </>
+                )}
         </div>
-      )}
-    </div>
-  )
-}
+    );
+};

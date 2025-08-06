@@ -1,101 +1,102 @@
-import { Button, ButtonSize, ButtonTheme } from './Button'
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import type { Meta, StoryObj } from '@storybook/react'
+import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
+import { Theme } from 'app/providers/ThemeProvider';
+import { Button, ButtonSize, ButtonTheme } from './Button';
 
-const meta = {
-  title: 'shared/Button',
-  component: Button,
-  tags: ['ui', 'buttons'],
-  argTypes: {
-    onClick: {
-      action: 'clicked', // Логирование кликов
-      table: {
-        category: 'Events', // Группировка в документации
-      },
+export default {
+    title: 'shared/Button',
+    component: Button,
+    argTypes: {
+        backgroundColor: { control: 'color' },
     },
-  },
-  args: {
+} as ComponentMeta<typeof Button>;
+
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
     children: 'Text',
-  },
-} satisfies Meta<typeof Button>
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Clear: Story = {
-  args: {
+export const Clear = Template.bind({});
+Clear.args = {
+    children: 'Text',
     theme: ButtonTheme.CLEAR,
-  },
-}
+};
 
-export const ClearInverted: Story = {
-  args: {
+export const ClearInverted = Template.bind({});
+ClearInverted.args = {
+    children: 'Text',
     theme: ButtonTheme.CLEAR_INVERTED,
-  },
-}
+};
 
-export const Outlined: Story = {
-  args: {
+export const Outline = Template.bind({});
+Outline.args = {
+    children: 'Text',
     theme: ButtonTheme.OUTLINE,
-  },
-}
+};
 
-export const Background: Story = {
-  args: {
-    theme: ButtonTheme.BACKGROUND,
-  },
-}
-
-export const BackgroundInverted: Story = {
-  args: {
-    theme: ButtonTheme.BACKGROUND_INVERTED,
-  },
-}
-
-export const SquareSizeM: Story = {
-  args: {
-    children: '>',
-    square: true,
-    theme: ButtonTheme.BACKGROUND,
-  },
-}
-
-export const SquareSizeL: Story = {
-  args: {
-    children: '>',
-    square: true,
-    theme: ButtonTheme.BACKGROUND,
-    size: ButtonSize.L,
-  },
-}
-
-export const SquareSizeXL: Story = {
-  args: {
-    children: '>',
-    square: true,
-    theme: ButtonTheme.BACKGROUND,
-    size: ButtonSize.XL,
-  },
-}
-
-export const OutlinedSizeL: Story = {
-  args: {
+export const OutlineSizeL = Template.bind({});
+OutlineSizeL.args = {
+    children: 'Text',
     theme: ButtonTheme.OUTLINE,
     size: ButtonSize.L,
-  },
-}
+};
 
-export const OutlinedSizeXL: Story = {
-  args: {
+export const OutlineSizeXl = Template.bind({});
+OutlineSizeXl.args = {
+    children: 'Text',
     theme: ButtonTheme.OUTLINE,
     size: ButtonSize.XL,
-  },
-}
+};
 
-export const Disabled: Story = {
-  args: {
+export const OutlineDark = Template.bind({});
+OutlineDark.args = {
+    children: 'Text',
+    theme: ButtonTheme.OUTLINE,
+};
+OutlineDark.decorators = [ThemeDecorator(Theme.DARK)];
+
+export const BackgroundTheme = Template.bind({});
+BackgroundTheme.args = {
+    children: 'Text',
+    theme: ButtonTheme.BACKGROUND,
+};
+
+export const BackgroundInverted = Template.bind({});
+BackgroundInverted.args = {
+    children: 'Text',
     theme: ButtonTheme.BACKGROUND_INVERTED,
+};
+
+export const Square = Template.bind({});
+Square.args = {
+    children: '>',
+    theme: ButtonTheme.BACKGROUND_INVERTED,
+    square: true,
+};
+
+export const SquareSizeL = Template.bind({});
+SquareSizeL.args = {
+    children: '>',
+    theme: ButtonTheme.BACKGROUND_INVERTED,
+    square: true,
+    size: ButtonSize.L,
+};
+
+export const SquareSizeXl = Template.bind({});
+SquareSizeXl.args = {
+    children: '>',
+    theme: ButtonTheme.BACKGROUND_INVERTED,
+    square: true,
     size: ButtonSize.XL,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+    children: '>',
+    theme: ButtonTheme.OUTLINE,
     disabled: true,
-  },
-}
+};

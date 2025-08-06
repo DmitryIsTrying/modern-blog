@@ -1,28 +1,36 @@
-import { memo, PropsWithChildren } from 'react'
-import { Link, LinkProps } from 'react-router-dom'
-
-import cls from './AppLink.module.scss'
-
-import { classNames } from '@/shared/lib/classNames/classNames'
+import { classNames } from 'shared/lib/classNames/classNames';
+import { Link, LinkProps } from 'react-router-dom';
+import { FC, memo, ReactNode } from 'react';
+import cls from './AppLink.module.scss';
 
 export enum AppLinkTheme {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
+    PRIMARY = 'primary',
+    SECONDARY = 'secondary',
+    RED = 'red',
 }
 
 interface AppLinkProps extends LinkProps {
-  className?: string
-  theme?: AppLinkTheme
+    className?: string;
+    theme?: AppLinkTheme;
+    children?: ReactNode;
 }
 
-export const AppLink = memo(
-  ({ className, children, theme = AppLinkTheme.PRIMARY, ...props }: PropsWithChildren<AppLinkProps>) => {
-    return (
-      <Link className={classNames(cls.appLink, {}, [className, cls[theme]])} {...props}>
-        {children}
-      </Link>
-    )
-  },
-)
+export const AppLink = memo((props: AppLinkProps) => {
+    const {
+        to,
+        className,
+        children,
+        theme = AppLinkTheme.PRIMARY,
+        ...otherProps
+    } = props;
 
-AppLink.displayName = 'AppLink'
+    return (
+        <Link
+            to={to}
+            className={classNames(cls.AppLink, { [cls[theme]]: true }, [className])}
+            {...otherProps}
+        >
+            {children}
+        </Link>
+    );
+});

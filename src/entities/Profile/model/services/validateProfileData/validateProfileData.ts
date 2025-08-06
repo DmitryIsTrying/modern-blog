@@ -1,27 +1,27 @@
-import { Profile, ValidateProfileError } from '../../types/profile'
-
-const MIN_AGE_VALUE = 10
-const MAX_AGE_VALUE = 100
+import { Profile, ValidateProfileError } from '../../types/profile';
 
 export const validateProfileData = (profile?: Profile) => {
-  if (!profile) {
-    return [ValidateProfileError.NO_DATA]
-  }
+    if (!profile) {
+        return [ValidateProfileError.NO_DATA];
+    }
 
-  const { first, lastname, age, country } = profile
-  const errors: ValidateProfileError[] = []
+    const {
+        first, lastname, age, country,
+    } = profile;
 
-  if (!first || !lastname) {
-    errors.push(ValidateProfileError.INCORRECT_USER_DATA)
-  }
+    const errors: ValidateProfileError[] = [];
 
-  if (!age || !Number.isInteger(age) || age < MIN_AGE_VALUE || age > MAX_AGE_VALUE) {
-    errors.push(ValidateProfileError.INCORRECT_AGE)
-  }
+    if (!first || !lastname) {
+        errors.push(ValidateProfileError.INCORRECT_USER_DATA);
+    }
 
-  if (!country) {
-    errors.push(ValidateProfileError.INCORRECT_COUNTRY)
-  }
+    if (!age || !Number.isInteger(age)) {
+        errors.push(ValidateProfileError.INCORRECT_AGE);
+    }
 
-  return errors
-}
+    if (!country) {
+        errors.push(ValidateProfileError.INCORRECT_COUNTRY);
+    }
+
+    return errors;
+};

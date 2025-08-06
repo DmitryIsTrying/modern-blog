@@ -1,80 +1,39 @@
-import path from 'path'
+import webpack, { DefinePlugin, RuleSetRule } from 'webpack';
+import path from 'path';
+import { buildCssLoader } from '../build/loaders/buildCssLoader';
+import { BuildPaths } from '../build/types/config';
 
-import webpack, { RuleSetRule } from 'webpack'
+export default ({ config }: {config: webpack.Configuration}) => {
+    const paths: BuildPaths = {
+        build: '',
+        html: '',
+        entry: '',
+        src: path.resolve(__dirname, '..', '..', 'src'),
+    };
+    config!.resolve!.modules!.push(paths.src);
+    config!.resolve!.extensions!.push('.ts', '.tsx');
 
-import { buildCssLoaders } from '../build/loaders/buildCssLoaders'
-import { BuildPaths } from '../build/types/config'
+    // eslint-disable-next-line no-param-reassign
+    // @ts-ignore
+    config!.module!.rules = config.module!.rules!.map((rule: RuleSetRule) => {
+        if (/svg/.test(rule.test as string)) {
+            return { ...rule, exclude: /\.svg$/i };
+        }
 
-export default ({ config }: { config: webpack.Configuration }) => {
-  const paths: BuildPaths = {
-    build: '',
-    entry: '',
-    html: '',
-    src: path.resolve(__dirname, '..', '..', 'src'),
-  }
+        return rule;
+    });
 
-  // 1. Настройка резолвинга
-  config.resolve = {
-    ...config.resolve,
-    modules: [...(config.resolve?.modules || []), paths.src],
-    extensions: [...(config.resolve?.extensions || []), '.ts', '.tsx'],
-    alias: {
-      ...config.resolve?.alias,
-      '@': paths.src,
-    },
-  }
+    config!.module!.rules.push({
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+    });
+    config!.module!.rules.push(buildCssLoader(true));
 
-  // Инициализация config.module, если его нет
-  config.module = config.module || {}
+    config!.plugins!.push(new DefinePlugin({
+        __IS_DEV__: JSON.stringify(true),
+        __API__: JSON.stringify(''),
+        __PROJECT__: JSON.stringify('storybook'),
+    }));
 
-  // Инициализация rules, если их нет
-  config.module.rules = config.module.rules || []
-
-  // 2. Правильная обработка SVG
-  const validRules = config.module.rules.filter((rule): rule is RuleSetRule => !!rule && typeof rule === 'object')
-
-  const svgRuleIndex = validRules.findIndex((rule) => {
-    if (typeof rule.test === 'string') {
-      return rule.test.includes('svg')
-    }
-    return rule.test?.toString().includes('svg')
-  })
-  if (svgRuleIndex !== -1) {
-    config.module.rules.splice(svgRuleIndex, 1)
-  }
-
-  // 3. Добавляем свои лоадеры
-  config.module.rules.push(
-    {
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-        },
-      ],
-    },
-    buildCssLoaders(true),
-    {
-      test: /\.(png|jpe?g|gif|woff2|woff)$/i,
-      use: [
-        {
-          loader: 'file-loader',
-        },
-      ],
-    },
-  )
-
-  // Инициализация plugins, если их нет
-  config.plugins = config.plugins || []
-
-  config.plugins.push(
-    new webpack.DefinePlugin({
-      __IS_DEV__: true,
-      __API_URL__: JSON.stringify(''),
-      __PROJECT__: JSON.stringify('storybook'),
-    }),
-  )
-
-  return config
-}
+    return config;
+};

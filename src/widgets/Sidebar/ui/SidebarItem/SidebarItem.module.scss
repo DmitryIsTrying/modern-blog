@@ -1,28 +1,22 @@
 .item {
+    margin-top: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.icon {
-    fill: var(--inverted-secondary-color);
-    flex-shrink: 0;
 }
 
 .link {
+    margin-left: 10px;
     opacity: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    transition:
-        opacity 0.5s,
-        width 0.5s;
+}
+
+.icon {
+    fill: var(--inverted-primary-color);
 }
 
 .collapsed {
-    width: var(--sidebar-width-collapsed);
-
     .link {
-        width: 0;
         opacity: 0;
+        transition: 0.2s opacity;
+        width: 0;
     }
 }
