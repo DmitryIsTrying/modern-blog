@@ -14,7 +14,7 @@ export const Icon = memo((props: IconProps) => {
     const colorIconClass = changeStroke ? cls.strokeIcon : cls.fillIcon;
 
     return (
-        <Svg className={classNames(cls.Icon, {}, [className, colorIconClass])} />
+        <Svg className={classNames(cls.Icon, {}, [colorIconClass, className])} />
     );
 });
 
